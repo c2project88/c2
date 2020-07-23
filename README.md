@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/zmrenwu/django-blog-tutorial.git
+git clone https://github.com/c2project88/c2.git
 pip install -r requirements/local
 python manage.py migrate
 python manage.py createsuperuser
