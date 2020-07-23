@@ -49,10 +49,14 @@ DJANGO_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 )
 
 THIRD_PARTY_APPS = (
-
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 )
 
 LOCAL_APPS = (
@@ -74,11 +78,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-
+print(str(APPS_DIR('auth/templates/auth')))
+print('/home/hitokiri/django/c2projet/src/project/auth/templates/auth/index.html')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            str(APPS_DIR('auth/templates/')),
+            str(ROOT_DIR('templates/'))
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,3 +160,25 @@ STATICFILES_FINDERS = (
 )
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(APPS_DIR('media'))
+
+
+# Auth settings
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
